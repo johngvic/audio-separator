@@ -5,6 +5,7 @@ import PauseIcon from './assets/pause.svg';
 import RewindIcon from './assets/rewind.svg';
 import FastForwardIcon from './assets/fast-forward.svg';
 import MutedIcon from './assets/muted.svg';
+// import Metronome from "./components/Metronome";
 
 const StemPlayer = () => {
   const stems = ['vocals', 'drums', 'bass', 'other'];
@@ -26,7 +27,7 @@ const StemPlayer = () => {
 
   // Initialize audio elements on mount
   useEffect(() => {
-    const vocals = new Audio("stems/vocals.m4a");
+    const vocals = new Audio("C:/data/dev/python/audio-separator/workspace/stems/Nivel_Raso/vocals.m4a");
     const drums = new Audio("stems/drums.m4a");
     const bass = new Audio("stems/bass.m4a");
     const other = new Audio("stems/other.m4a");
@@ -164,7 +165,7 @@ const StemPlayer = () => {
 
           <TimestampContainer>
             <p>{getFormattedTime(currentTime)}</p>
-            <input
+            <ProgressBar
               type="range"
               min={0}
               max={audioElements.vocals.duration}
@@ -172,11 +173,12 @@ const StemPlayer = () => {
               onChange={(e) => {
                 syncTime(Number(e.target.value));
               }}
-              style={{width: '15rem'}}
             />
             <p>{getFormattedTime(audioElements.vocals.duration)}</p>
           </TimestampContainer>
         </PlayerContainer>
+
+        {/* <Metronome/> */}
       </Container>
     </div>
   );
@@ -223,6 +225,17 @@ const VolumeContainer = styled.div`
 const VolumeButton = styled.input`
   margin-top: .5rem;
   width: 8rem;
+  height: 4px;
+  border-radius: 3px;
+  position: relative;
+  background-color: #262626;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(90deg,#00dae8,#0affa7);
+  background-size: 100%;
+  cursor: pointer;
 `
 
 const ToggleStemButton = styled.button`
@@ -256,9 +269,25 @@ const TimestampContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  align-items: center;
 
   p {
     width: 3rem;
     text-align: center;
   }
+`
+
+const ProgressBar = styled.input`
+  width: 15rem;
+  height: 4px;
+  cursor: pointer;
+  border-radius: 3px;
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-size: 0;
+  background-repeat: no-repeat;
+  background-color: #333;
+  background-image: linear-gradient(#666,#666);
 `
