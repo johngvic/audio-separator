@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
+import {ArrowIcon} from '../assets';
 import styled from "styled-components";
-import ArrowIcon from "./assets/arrow.svg";
 
 const Home = () => {
+  const navigate = useNavigate();
   const availableTracks = ["Ate_Que_A_Casa_Esteja_Cheia", "Belief", "Nivel_Raso"];
 
   return (
@@ -12,9 +14,9 @@ const Home = () => {
         <Subtitle>Track List</Subtitle>
 
         {availableTracks.map((it) => (
-          <Track>
+          <Track onClick={() => navigate(`/stem-player/${it}`)}>
             <p>{it.split('_').join(" ")}</p>
-            <img src={ArrowIcon}/>
+            <img src={ArrowIcon} alt="Arrow icon"/>
           </Track>
         ))}
       </TracksContainer>

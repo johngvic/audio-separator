@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import PlayIcon from './assets/play.svg';
-import PauseIcon from './assets/pause.svg';
-import RewindIcon from './assets/rewind.svg';
-import FastForwardIcon from './assets/fast-forward.svg';
-import MutedIcon from './assets/muted.svg';
-// import Metronome from "./components/Metronome";
+import {
+  PlayIcon,
+  PauseIcon,
+  RewindIcon,
+  FastForwardIcon,
+  MutedIcon
+} from '../assets';
 
 const StemPlayer = () => {
+  const { song } = useParams();
   const stems = ['vocals', 'drums', 'bass', 'other'];
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -27,7 +30,7 @@ const StemPlayer = () => {
 
   // Initialize audio elements on mount
   useEffect(() => {
-    const vocals = new Audio("C:/data/dev/python/audio-separator/workspace/stems/Nivel_Raso/vocals.m4a");
+    const vocals = new Audio("stems/vocals.m4a");
     const drums = new Audio("stems/drums.m4a");
     const bass = new Audio("stems/bass.m4a");
     const other = new Audio("stems/other.m4a");
@@ -130,7 +133,7 @@ const StemPlayer = () => {
                 <ToggleStemButton onClick={() => toggleMute(it)}>
                   {isMuted[it] ? "M" : "U"}
                 </ToggleStemButton>
-                <p>{it.split('').map((l, index) => index == 0 ? l.toUpperCase() : l)}</p>
+                <p>{it.split('').map((l, index) => index === 0 ? l.toUpperCase() : l)}</p>
               </StemDetails>
 
               <VolumeContainer>
@@ -146,8 +149,8 @@ const StemPlayer = () => {
                 />
 
                 {
-                  isMuted[it] || audioElements[it].volume == 0 ?
-                  <img src={MutedIcon}/> :
+                  isMuted[it] || audioElements[it].volume === 0 ?
+                  <img src={MutedIcon} alt="Mute icon"/> :
                   <p>{(audioElements[it].volume * 100).toFixed(0)}</p>
                 }
 
@@ -158,9 +161,9 @@ const StemPlayer = () => {
 
         <PlayerContainer>
           <IconsContainer>
-            <img src={RewindIcon} style={{ transform: "rotate(180deg)" }} />
-            <img src={!isPlaying ? PlayIcon : PauseIcon} onClick={handlePlayPause} />
-            <img src={FastForwardIcon} />
+            <img src={RewindIcon} alt="Rewind icon" style={{ transform: "rotate(180deg)" }} />
+            <img src={!isPlaying ? PlayIcon : PauseIcon} alt="Play/Pause icon" onClick={handlePlayPause} />
+            <img src={FastForwardIcon} alt="Fast Forward icon" />
           </IconsContainer>
 
           <TimestampContainer>

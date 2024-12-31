@@ -1,11 +1,9 @@
-import StemPlayer from "./pages/StemPlayer";
-import Home from "./pages/Home";
+import AppRoutes from "./Routes";
 
 function App() {
   return (
     <div className="App">
-      <Home/>
-      {/* <StemPlayer/> */}
+      <AppRoutes/>
     </div>
   );
 }
